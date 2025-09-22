@@ -4,7 +4,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4A4f4;
+    background-color: #f4f4f4;
     color: #333;
 }
 
@@ -13,7 +13,6 @@ body {
     margin: auto;
     padding: 0 20px;
     text-align: center;
-    color: #882;
 }
 
 /* Header and Navigation */
@@ -64,7 +63,7 @@ section {
 }
 
 section h2 {
-    color: #393;
+    color: #333;
     text-align: center;
     margin-bottom: 20px;
 }

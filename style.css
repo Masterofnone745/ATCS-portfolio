@@ -17,11 +17,10 @@ body {
 
 /* Header and Navigation */
 header {
-    margin: auto; 
-    padding: 0 20px; 
-    text-align: center; 
+     margin: auto;
+    padding: 0 20px;
+    text-align: center;
     color: #FFF;
-}
 }
 
 header h1 {
@@ -55,6 +54,19 @@ section {
     padding: 60px 0;
 }
 
+#about, #contact {
+    background: #fff;
+}
+
+#projects {
+    background: #e9e9e9;
+}
+
+section h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 /* Buttons and Links */
 .btn {

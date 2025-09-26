@@ -17,10 +17,9 @@ body {
 
 /* Header and Navigation */
 header {
-     margin: auto;
-    padding: 0 20px;
-    text-align: center;
+    /* Removed redundant styles */
     color: #FFF;
+}
 }
 
 header h1 {
@@ -53,39 +52,27 @@ header nav a {
 section {
     padding: 60px 0;
 }
-.profile-img {
-    /* Set a fixed width and height */
+profile-img {
+    /* Sets the size of the image */
     width: 150px;
     height: 150px;
     
-    /* Make the image a circle */
+    /* Clips the image into a circular shape */
     border-radius: 50%;
     
-    /* Ensure the image covers the area without distortion */
+    /* Ensures the image content covers the space nicely without distortion */
     object-fit: cover; 
     
-    /* Add some space below the image */
-    margin-bottom: 20px;
+    /* Adds space below the image */
+    margin-bottom: 25px;
     
-    /* Make the image a block element so you can center it (optional) */
+    /* Makes the image center-align in its container */
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-
-#about, #contact {
-    background: #fff;
-}
-
-#projects {
-    background: #e9e9e9;
-}
-
-
-section h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
+    
+    /* Optional: Add a border for extra definition */
+    border: 3px solid #333;
 }
 
 /* Buttons and Links */

@@ -1,12 +1,14 @@
 /* ========================================
    BASIC PAGE SETUP
    ======================================== */
+
+
 body {
     font-family: Lato, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #0055FF;
+    background-color: #063fb0;
     color: #000;
 }
 
@@ -65,9 +67,14 @@ section {
 }
 
 #projects {
-    background: url(Ocean.gif) 
-    
+    background: url(Ocean.gif) ;
+    /* fill whole background */
+    background-size: cover;
+    /*prevents image from repeating */
+    background-repeat: no-repeat;
+  
 }
+
 
 section h2 {
     color: #333;
@@ -111,6 +118,8 @@ section h2 {
     margin-bottom: 20px;
     text-align: left;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    opacity: 0.75;
+
 }
 
 .project-card h3 {
@@ -139,7 +148,7 @@ section h2 {
    FOOTER
    ======================================== */
 footer {
-    background: #333;
+    background: #063fb0;
     color: #fff;
     text-align: center;
     padding: 20px 0;

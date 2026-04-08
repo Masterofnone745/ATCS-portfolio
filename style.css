@@ -2,14 +2,16 @@
    BASIC PAGE SETUP
    ======================================== */
 
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: Lato, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #020617; 
+    color: #f8fafc;
+
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #063fb0;
-    color: #000;
 }
 
 .container {
@@ -55,6 +57,13 @@ header nav a {
     font-weight: bold;
 }
 
+.nav-link { position: relative; transition: color 0.3s; }
+.nav-link::after {
+    content: ''; position: absolute; width: 0; height: 2px;
+    bottom: -4px; left: 0; background-color: #06b6d4; transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
 /* ========================================
    MAIN SECTIONS (About, Projects, Contact)
    ======================================== */
@@ -67,14 +76,23 @@ section {
 }
 
 #projects {
-    background: url(Ocean.gif) ;
-    /* fill whole background */
+    position: relative;
+    background-image: url('Ocean.gif');
     background-size: cover;
-    /*prevents image from repeating */
+    background-position: center;
+    background-attachment: fixed;
+
     background-repeat: no-repeat;
-  
 }
 
+.ocean-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, #020617 0%, rgba(2, 6, 23, 0.2) 15%, rgba(2, 6, 23, 0.2) 85%, #020617 100%);
+    z-index: 1;
+}
+
+.project-content { position: relative; z-index: 2; }
 
 section h2 {
     color: #333;
@@ -110,7 +128,8 @@ section h2 {
     background-color: #fff;
     color: #000
 }
-   .project-card {
+
+.project-card {
     background: #fff;
     padding: 20px;
     border: 1px solid #ddd;
@@ -119,7 +138,13 @@ section h2 {
     text-align: left;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     opacity: 0.75;
+}
 
+.glass-card {
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
 }
 
 .project-card h3 {
@@ -129,6 +154,21 @@ section h2 {
 .project-card .btn {
     margin-right: 10px;
 }
+
+.project-card-link { transition: transform 0.4s ease, border-color 0.4s ease, opacity 0.4s ease; }
+
+/* ANIMATIONS */
+@keyframes slideInRight {
+    from { transform: translateX(40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInLeft {
+    from { transform: translateX(-40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.slide-next { animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+.slide-prev { animation: slideInLeft 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
 
 /* ========================================
    SOCIAL LINKS (GitHub, LinkedIn, etc.)

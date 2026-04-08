@@ -1,35 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--
+      DOCUMENT METADATA
+      - charset: ensures text renders correctly (UTF-8 supports most characters)
+      - viewport: makes layout scale correctly on mobile devices
+      - title: text shown in browser tab and used by bookmarks/search previews
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Eichhorn - Portfolio</title>
+
+    <!--
+      FAVICON
+      - The small icon shown in the browser tab.
+      - "Icon.png" must exist at the same directory level as this HTML file.
+    -->
     <link rel="icon" href="Icon.png" type="image/png">
+
+    <!--
+      TAILWIND CSS (CDN VERSION)
+      - Loads Tailwind utility classes from a CDN so you can use classes like:
+        bg-slate-900, text-cyan-400, flex, grid, rounded-2xl, etc.
+      - This requires an internet connection to load from cdn.tailwindcss.com.
+    -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--
+      GOOGLE FONT
+      - Imports "Plus Jakarta Sans" so we can use it in the page.
+      - Also requires internet to load the font.
+    -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        /*
+          GLOBAL SCROLL BEHAVIOR
+          - Enables smooth scrolling when clicking anchor links (like #about, #projects, #contact).
+        */
         html { scroll-behavior: smooth; }
         
+        /*
+          PAGE DEFAULTS
+          - font-family: sets the imported font as the page font
+          - background-color/text-color: creates a dark theme
+        */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #020617; 
             color: #f8fafc;
         }
 
+        /*
+          GLASS CARD EFFECT
+          - Used for project cards and the project preview container.
+          - Semi-transparent background + blur for a "glass" look.
+          - Transition makes hover/motion changes smooth.
+        */
         .glass-card {
             background: rgba(15, 23, 42, 0.5);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: #06b6d4;
-            background: rgba(15, 23, 42, 0.7);
-            box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.3);
-        }
-
+        /*
+          PROJECTS SECTION BACKGROUND
+          - Adds an animated ocean GIF behind the projects section.
+          - "Ocean.gif" must exist alongside this HTML file.
+          - background-attachment: fixed creates a parallax-like effect when scrolling.
+        */
         #projects {
             position: relative;
             background-image: url('Ocean.gif');
@@ -38,24 +78,29 @@
             background-attachment: fixed;
         }
 
+        /*
+          OCEAN OVERLAY
+          - A gradient overlay to darken the top and bottom of the ocean background.
+          - Keeps text readable on top of the GIF.
+          - z-index layering: overlay sits behind content but above background image.
+        */
         .ocean-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(
-                to bottom, 
-                #020617 0%, 
-                rgba(2, 6, 23, 0.2) 15%, 
-                rgba(2, 6, 23, 0.2) 85%, 
-                #020617 100%
-            );
+            background: linear-gradient(to bottom, #020617 0%, rgba(2, 6, 23, 0.2) 15%, rgba(2, 6, 23, 0.2) 85%, #020617 100%);
             z-index: 1;
         }
 
-        .project-content {
-            position: relative;
-            z-index: 2;
-        }
+        /*
+          PROJECT CONTENT LAYER
+          - Ensures your text/cards appear above the overlay.
+        */
+        .project-content { position: relative; z-index: 2; }
 
+        /*
+          NAV LINK UNDERLINE ANIMATION
+          - Creates an animated underline on hover using a pseudo-element (::after).
+        */
         .nav-link {
             position: relative;
             transition: color 0.3s;
@@ -64,24 +109,75 @@
         .nav-link::after {
             content: '';
             position: absolute;
-            width: 0; height: 2px;
-            bottom: -4px; left: 0;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
             background-color: #06b6d4;
             transition: width 0.3s ease;
         }
 
         .nav-link:hover::after { width: 100%; }
 
+        /*
+          SLIDER LAYOUT
+          - Container hides overflow so only the "current" set of cards is visible nicely.
+          - Centering makes the slider sit in the middle of the page.
+        */
+        #project-slider-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /*
+          SLIDER TRACK
+          - The row of cards. We rotate cards by moving DOM nodes (append/prepend).
+          - width: fit-content allows the row to be only as wide as the cards.
+        */
+        #project-slider {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+        }
+
+        /*
+          CARD "LINK" CONTAINER
+          - Ensures each project card has a consistent minimum width.
+          - flex-shrink: 0 prevents cards from shrinking smaller than min-width.
+        */
+        .project-card-link {
+            min-width: 300px;
+            flex-shrink: 0;
+        }
+
+        /*
+          ANCHOR OFFSET FOR STICKY HEADER
+          - When you click a nav link, the sticky header covers some space.
+          - scroll-margin-top ensures the section title isn't hidden under the header.
+        */
         section[id] { scroll-margin-top: 80px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
 
+<body class="min-h-screen flex flex-col">
+    <!--
+      STICKY HEADER / NAV BAR
+      - sticky top-0 keeps it pinned while scrolling
+      - backdrop-blur + translucent background gives a glass-like top bar
+    -->
     <header class="bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <!-- SITE NAME / BRANDING -->
             <h1 class="text-2xl font-black tracking-tighter text-white">
                 SIMON <span class="text-cyan-400">EICHHORN</span>
             </h1>
+
+            <!-- NAV LINKS (hidden on small screens due to 'hidden md:flex') -->
             <nav class="hidden md:flex space-x-10">
                 <a href="#about" class="nav-link text-xs font-bold text-slate-400 hover:text-cyan-400 uppercase tracking-widest">About</a>
                 <a href="#projects" class="nav-link text-xs font-bold text-slate-400 hover:text-cyan-400 uppercase tracking-widest">Projects</a>
@@ -90,11 +186,19 @@
         </div>
     </header>
 
+    <!--
+      MAIN CONTENT
+      - flex-grow makes main expand so footer stays at the bottom if content is short.
+    -->
     <main class="flex-grow">
+        <!-- ABOUT SECTION WRAPPER -->
         <div class="max-w-6xl mx-auto px-6 py-20">
             <section id="about">
+                <!-- About card -->
                 <div class="bg-slate-900/40 rounded-[2rem] p-10 md:p-16 border border-slate-800 shadow-inner">
-                    <span class="text-cyan-400 text-sm font-semibold uppercase tracking-wider block mb-2">Computer Science Student | Aspiring Developer</span>
+                    <span class="text-cyan-400 text-sm font-semibold uppercase tracking-wider block mb-2">
+                        Computer Science Student | Aspiring Developer
+                    </span>
                     <h2 class="text-5xl font-extrabold text-white mb-8 tracking-tight">About Me</h2>
                     <p class="text-xl text-slate-300 leading-relaxed max-w-4xl">
                         Hello! I'm Simon, a passionate computer science student with a strong interest in web development, cyber security, and video game design. In my free time, I like to play and make video games, draw, and sleep.
@@ -103,65 +207,252 @@
             </section>
         </div>
 
-        <section id="projects" class="py-32">
+        <!--
+          PROJECTS SECTION
+          - overflow-hidden keeps scaled cards from causing scrollbars/overflow issues
+        -->
+        <section id="projects" class="py-32 overflow-hidden">
+            <!-- Background overlay layer -->
             <div class="ocean-overlay"></div>
             
+            <!-- Actual content layer (above overlay) -->
             <div class="project-content max-w-6xl mx-auto px-6">
-                <h3 class="text-4xl font-bold text-white mb-12 border-b border-white/10 pb-4">Projects</h3>
+                <h3 class="text-4xl font-bold text-white mb-12 border-b border-white/10 pb-4 text-center">Projects</h3>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="glass-card p-8 rounded-2xl flex flex-col">
-                        <h3 class="text-xl font-bold text-cyan-400 mb-2">Number Converter</h3>
-                        <p class="text-slate-200 mb-8 flex-grow">Converts numbers into various formats</p>
-                        <div class="flex gap-3 mt-auto">
-                            <a href="https://github.com/Masterofnone745/Number-converter" target="_blank" class="text-sm font-semibold bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-500 transition-colors">GitHub Repo</a>
-                            <a href="https://masterofnone745.github.io/Number-converter/" class="text-sm font-semibold bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors">Web page</a>
+                <!--
+                  PROJECT SHOWCASE (LARGE PREVIEW AREA)
+                  - This is updated dynamically by JavaScript based on the "active" (middle) card.
+                  - Contains:
+                    1) a preview frame (image/placeholder)
+                    2) title + description
+                    3) buttons to repo and web link
+                -->
+                <div class="mb-12 glass-card rounded-[2rem] p-4 md:p-8 flex flex-col items-center">
+                    <!-- Preview frame: uses aspect-video to stay in 16:9 -->
+                    <div id="project-showcase" class="w-full aspect-video bg-slate-950/50 rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center relative mb-6">
+                        <!-- Placeholder text shown when no image is provided -->
+                        <div class="text-slate-500 text-lg italic" id="showcase-placeholder">Project Preview</div>
+
+                        <!--
+                          Showcase image:
+                          - absolutely positioned to cover entire preview area
+                          - opacity is toggled (0 -> 1) to fade it in/out
+                        -->
+                        <img id="showcase-img" src="" alt="Showcase" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                    </div>
+                    
+                    <!-- Showcase text + buttons (populated by JS) -->
+                    <div class="text-center">
+                        <h4 id="showcase-title" class="text-3xl font-extrabold text-cyan-400 mb-2 tracking-tight uppercase">Project Title</h4>
+                        <p id="showcase-desc" class="text-slate-300 max-w-2xl mx-auto leading-relaxed mb-6">Details loading...</p>
+                        <div class="flex gap-4 justify-center">
+                            <a id="showcase-repo-btn" href="#" target="_blank" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
+                                GitHub Repo
+                            </a>
+                            <a id="showcase-web-btn" href="#" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
+                                View Web
+                            </a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="glass-card p-8 rounded-2xl flex flex-col">
-                        <h3 class="text-xl font-bold text-cyan-400 mb-2">Ardunio Lights out puzzle</h3>
-                        <p class="text-slate-200 mb-8 flex-grow">An ardunio puzzle where you need to figure out how to turn all of the lights off</p>
-                        <div class="flex gap-3 mt-auto">
-                            <a href="https://github.com/Masterofnone745/Lights-Out-Ardunio" target="_blank" class="text-sm font-semibold bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-500 transition-colors">GitHub Repo</a>
-                            <a href="Lightsout.html" class="text-sm font-semibold bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors">Web page</a>
-                        </div>
-                    </div>
+                <!--
+                  SLIDER + ARROWS
+                  - Buttons call shiftSlider(-1) and shiftSlider(1)
+                  - The slider is "circular": it moves first/last card to the other end.
+                -->
+                <div class="relative flex items-center justify-center">
+                    <!-- Left arrow: moves slider backward -->
+                    <button onclick="shiftSlider(-1)" class="absolute left-0 md:left-4 z-30 bg-slate-900/90 border border-slate-700 text-white p-3 rounded-full hover:bg-cyan-600 transition-all shadow-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Right arrow: moves slider forward -->
+                    <button onclick="shiftSlider(1)" class="absolute right-0 md:right-4 z-30 bg-slate-900/90 border border-slate-700 text-white p-3 rounded-full hover:bg-cyan-600 transition-all shadow-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
 
-                    <div class="glass-card p-8 rounded-2xl flex flex-col">
-                        <h3 class="text-xl font-bold text-cyan-400 mb-2">King Pin</h3>
-                        <p class="text-slate-200 mb-8 flex-grow">A group project website to make a website for our schools bowling team</p>
-                        <div class="flex gap-3 mt-auto">
-                            <a href="https://github.com/Masterofnone745" target="_blank" class="text-sm font-semibold bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-500 transition-colors">GitHub Repo</a>
-                            <a href="Kingpin.html" class="text-sm font-semibold bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors">Web page</a>
+                    <!-- Slider container clamps the visible region -->
+                    <div id="project-slider-container">
+                        <!--
+                          Slider track:
+                          - Each .project-card-link has data-id that maps to projectData[index]
+                          - JS uses the "middle card" (cards[1]) as the active card
+                        -->
+                        <div id="project-slider">
+                            <div class="project-card-link glass-card p-6 rounded-2xl border-2 border-transparent" data-id="0">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2">Number Converter</h3>
+                                <p class="text-slate-200 mb-4 text-sm">Converts numbers between formats.</p>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/Masterofnone745/Number-converter" target="_blank" class="text-[10px] uppercase font-bold bg-cyan-600 px-3 py-1 rounded hover:bg-cyan-500 text-white">Repo</a>
+                                    <a href="https://masterofnone745.github.io/Number-converter/" target="_blank" class="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded hover:bg-slate-700 text-white">Web</a>
+                                </div>
+                            </div>
+
+                            <div class="project-card-link glass-card p-6 rounded-2xl border-2 border-transparent" data-id="1">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2">Arduino Lights Out</h3>
+                                <p class="text-slate-200 mb-4 text-sm">An arduino logic puzzle game.</p>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/Masterofnone745/Lights-Out-Ardunio" target="_blank" class="text-[10px] uppercase font-bold bg-cyan-600 px-3 py-1 rounded hover:bg-cyan-500 text-white">Repo</a>
+                                    <!-- Local link: requires Lightsout.html to exist in same directory -->
+                                    <a href="Lightsout.html" target="_blank" class="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded hover:bg-slate-700 text-white">Web</a>
+                                </div>
+                            </div>
+
+                            <div class="project-card-link glass-card p-6 rounded-2xl border-2 border-transparent" data-id="2">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2">King Pin</h3>
+                                <p class="text-slate-200 mb-4 text-sm">School bowling team website.</p>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/Masterofnone745" target="_blank" class="text-[10px] uppercase font-bold bg-cyan-600 px-3 py-1 rounded hover:bg-cyan-500 text-white">Repo</a>
+                                    <!-- Local link: requires Kingpin.html to exist in same directory -->
+                                    <a href="Kingpin.html" target="_blank" class="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded hover:bg-slate-700 text-white">Web</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- CONTACT SECTION -->
         <div class="max-w-6xl mx-auto px-6 py-24">
             <section id="contact" class="p-12 bg-slate-900 rounded-[2rem] border border-slate-800 shadow-2xl">
                 <h2 class="text-3xl font-bold mb-4 text-white">Contact</h2>
-                <p class="text-slate-400 mb-8">Feel free to get in touch! You can find me on these platforms:</p>
+                <p class="text-slate-400 mb-8">Feel free to reach out via GitHub or Email!</p>
                 <div class="flex space-x-8">
-                    <a href="https://github.com/Masterofnone745" target="_blank" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors font-bold border-b border-cyan-400/30 pb-1">
-                        GitHub
-                    </a>
-                    <a href="mailto:seichhorn26@pascack.org" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors font-bold border-b border-cyan-400/30 pb-1">
-                        Gmail
-                    </a>
+                    <a href="https://github.com/Masterofnone745" target="_blank" class="text-cyan-400 font-bold border-b border-cyan-400/30">GitHub</a>
+                    <a href="mailto:seichhorn26@pascack.org" class="text-cyan-400 font-bold border-b border-cyan-400/30">Email</a>
                 </div>
             </section>
         </div>
     </main>
 
-    <footer class="py-12 border-t border-slate-900 text-center">
-        <p class="text-slate-600 text-sm">
-            &copy; 2025 Simon Eichhorn. All rights reserved.
-        </p>
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-slate-900 text-center text-slate-600 text-sm">
+        &copy; 2025 Simon Eichhorn. All rights reserved.
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        /*
+          PROJECT DATA (SOURCE OF TRUTH)
+          - Each object holds the details for one project.
+          - data-id on each card MUST match the index here (0, 1, 2, ...).
+          - image: left empty on purpose; if you add an image URL/path later,
+            the showcase preview will fade it in automatically.
+        */
+        const projectData = [
+            {
+                title: "Number Converter",
+                desc: "A handy tool designed to convert numbers between various formats like Binary, Hexadecimal, and Decimal seamlessly. Built with focus on precision and a simple, intuitive UI.",
+                repo: "https://github.com/Masterofnone745/Number-converter",
+                web: "https://masterofnone745.github.io/Number-converter/",
+                image: ""
+            },
+            {
+                title: "Arduino Lights Out",
+                desc: "A logic-based physical puzzle game using Arduino hardware. Players must figure out the specific sequence to turn off all the LEDs on the board.",
+                repo: "https://github.com/Masterofnone745/Lights-Out-Ardunio",
+                web: "Lightsout.html",
+                image: ""
+            },
+            {
+                title: "King Pin",
+                desc: "A collaborative web project designed specifically for the school bowling team to track stats, schedules, and team milestones in a sleek interface.",
+                repo: "https://github.com/Masterofnone745",
+                web: "Kingpin.html",
+                image: ""
+            }
+        ];
+
+        /*
+          SLIDER ROOT ELEMENT
+          - This is the container that holds the project cards in order.
+          - We "rotate" cards by moving DOM nodes inside this element.
+        */
+        const slider = document.getElementById('project-slider');
+        
+        /*
+          SHIFT SLIDER (ROTATE CARDS)
+          - direction === 1: move first card to the end (forward)
+          - direction !== 1: move last card to the beginning (backward)
+          - After shifting, call updateShowcase() so the big preview matches the new middle card.
+        */
+        function shiftSlider(direction) {
+            const cards = document.querySelectorAll('.project-card-link');
+
+            if (direction === 1) {
+                // Forward: [A, B, C] -> [B, C, A]
+                slider.appendChild(cards[0]);
+            } else {
+                // Backward: [A, B, C] -> [C, A, B]
+                slider.prepend(cards[cards.length - 1]);
+            }
+
+            updateShowcase();
+        }
+
+        /*
+          UPDATE SHOWCASE + ACTIVE CARD STYLING
+          - Picks the "middle card" as the active card: cards[1]
+            (This assumes you show 3 cards in the row; with your layout, it's correct.)
+          - Reads its data-id, pulls matching data from projectData,
+            and updates title/description/buttons + image behavior.
+          - Also visually highlights the active card and dims the others.
+        */
+        function updateShowcase() {
+            const cards = document.querySelectorAll('.project-card-link');
+
+            // Active card is the center card
+            const activeCard = cards[1];
+            const id = activeCard.getAttribute('data-id');
+            const data = projectData[id];
+
+            // Update text and buttons in the showcase area
+            document.getElementById('showcase-title').innerText = data.title;
+            document.getElementById('showcase-desc').innerText = data.desc;
+            document.getElementById('showcase-repo-btn').href = data.repo;
+            document.getElementById('showcase-web-btn').href = data.web;
+            
+            // Handle optional image preview
+            const img = document.getElementById('showcase-img');
+            const placeholder = document.getElementById('showcase-placeholder');
+            
+            if (data.image && data.image !== "") {
+                // If an image exists, show it and hide placeholder text
+                img.src = data.image;
+                img.classList.remove('opacity-0');
+                placeholder.classList.add('hidden');
+            } else {
+                // If no image, hide image (opacity 0) and show placeholder text
+                img.classList.add('opacity-0');
+                placeholder.classList.remove('hidden');
+            }
+
+            // Style cards: center card is highlighted, side cards are smaller/dimmer
+            cards.forEach((card, i) => {
+                if (i === 1) {
+                    card.style.borderColor = "#06b6d4";
+                    card.style.transform = "scale(1.1)";
+                    card.style.opacity = "1";
+                    card.style.background = "rgba(15, 23, 42, 0.9)";
+                } else {
+                    card.style.borderColor = "transparent";
+                    card.style.transform = "scale(0.85)";
+                    card.style.opacity = "0.4";
+                    card.style.background = "rgba(15, 23, 42, 0.5)";
+                }
+            });
+        }
+
+        /*
+          INITIALIZE ON PAGE LOAD
+          - Ensures the showcase and card styling are correct immediately when the page loads.
+        */
+        window.onload = () => updateShowcase();
+    </script>
 </body>
 </html>

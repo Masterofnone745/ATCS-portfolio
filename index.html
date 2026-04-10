@@ -3,21 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>ATCS Portfolio</title>
+    <title>Simon Eichhorn - Portfolio</title>
+    <link rel="icon" href="Icon.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; }
+        .glass-card { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        #projects { position: relative; background-image: url('Ocean.gif'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .ocean-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, #020617 0%, rgba(2, 6, 23, 0.2) 15%, rgba(2, 6, 23, 0.2) 85%, #020617 100%); z-index: 1; }
+        .project-content { position: relative; z-index: 2; }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #06b6d4; transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+        #project-slider-container { width: 100%; overflow: hidden; padding: 40px 0; display: flex; justify-content: center; }
+        #project-slider { display: flex; gap: 2rem; align-items: center; justify-content: center; width: fit-content; }
+        .project-card-link { min-width: 300px; flex-shrink: 0; }
+        section[id] { scroll-margin-top: 80px; }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>Welcome to My Portfolio</h1>
+
+<body class="min-h-screen flex flex-col">
+    <header class="bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <h1 class="text-2xl font-black tracking-tighter text-white">SIMON <span class="text-cyan-400">EICHHORN</span></h1>
+            <nav class="hidden md:flex space-x-10">
+                <a href="#about" class="nav-link text-xs font-bold text-slate-400 hover:text-cyan-400 uppercase tracking-widest">About</a>
+                <a href="#projects" class="nav-link text-xs font-bold text-slate-400 hover:text-cyan-400 uppercase tracking-widest">Projects</a>
+                <a href="#contact" class="nav-link text-xs font-bold text-slate-400 hover:text-cyan-400 uppercase tracking-widest">Contact</a>
+            </nav>
+        </div>
     </header>
-    <main>
-        <section>
-            <img id="showcase-img" class="object-contain" src="showcase.jpg" alt="Showcase Image">
-            <p>This is a showcase of my work.</p>
+
+    <main class="flex-grow">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <section id="about">
+                <div class="bg-slate-900/40 rounded-[2rem] p-10 md:p-16 border border-slate-800">
+                    <span class="text-cyan-400 text-sm font-semibold uppercase tracking-wider block mb-2">Computer Science Student</span>
+                    <h2 class="text-5xl font-extrabold text-white mb-8 tracking-tight">About Me</h2>
+                    <p class="text-xl text-slate-300 leading-relaxed max-w-4xl">Hello! I'm Simon, a passionate computer science student with a strong interest in web development and cyber security.</p>
+                </div>
+            </section>
+        </div>
+
+        <section id="projects" class="py-32 overflow-hidden">
+            <div class="ocean-overlay"></div>
+            <div class="project-content max-w-6xl mx-auto px-6">
+                
+                <div class="mb-10 glass-card rounded-[1.5rem] p-4 md:p-6 flex flex-col items-center max-w-2xl mx-auto shadow-2xl">
+                    <div id="project-showcase" class="w-full aspect-video bg-slate-950/60 rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center relative mb-4">
+                        <div class="text-slate-500 text-sm italic" id="showcase-placeholder">Project Preview</div>
+                        <img id="showcase-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500">
+                    </div>
+                    <div class="text-center">
+                        <h4 id="showcase-title" class="text-xl font-extrabold text-cyan-400 mb-1 tracking-tight uppercase">Title</h4>
+                        <p id="showcase-desc" class="text-slate-400 text-xs max-w-md mx-auto mb-4">Description...</p>
+                        <div class="flex gap-3 justify-center">
+                            <a id="showcase-repo-btn" href="#" target="_blank" class="bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] uppercase font-bold py-2 px-5 rounded-full transition-all">GitHub Repo</a>
+                            <a id="showcase-web-btn" href="#" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white text-[10px] uppercase font-bold py-2 px-5 rounded-full transition-all">View Web</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-center">
+                    <button onclick="shiftSlider(-1)" class="absolute left-0 md:left-4 z-30 bg-slate-900/90 border border-slate-700 text-white p-3 rounded-full hover:bg-cyan-600 shadow-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button onclick="shiftSlider(1)" class="absolute right-0 md:right-4 z-30 bg-slate-900/90 border border-slate-700 text-white p-3 rounded-full hover:bg-cyan-600 shadow-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+
+                    <div id="project-slider-container">
+                        <div id="project-slider">
+                            <div class="project-card-link glass-card p-6 rounded-2xl border-2 border-transparent" data-id="0">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2">Number Converter</h3>
+                                <p class="text-slate-200 mb-4 text-sm">Converts numbers between formats.</p>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/Masterofnone745/Number-converter" target="_blank" class="text-[10px] uppercase font-bold bg-cyan-600 px-3 py-1 rounded">Repo</a>
+                                    <a href="https://masterofnone745.github.io/Number-converter/" target="_blank" class="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded">Web</a>
+                                </div>
+                            </div>
+                            <div class="project-card-link glass-card p-6 rounded-2xl border-2 border-transparent" data-id="1">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2">Arduino Lights Out</h3>
+                                <p class="text-slate-200 mb-4 text-sm">An arduino logic puzzle game.</p>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/Masterofnone745/Lights-Out-Ardunio" target="_blank" class="text-[10px] uppercase font-bold bg-cyan-600 px-3 py-1 rounded">Repo</a>
+                                    <a href="Lightsout.html" target="_blank" class="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded">Web</a>
+                                </div>
+                            </div>
+                            <div class="project-card-link glass-card p-6 rounded-2xl border-2 border-transparent" data-id="2">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2">King Pin</h3>
+                                <p class="text-slate-200 mb-4 text-sm">Bowling team website.</p>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/Masterofnone745" target="_blank" class="text-[10px] uppercase font-bold bg-cyan-600 px-3 py-1 rounded">Repo</a>
+                                    <a href="Kingpin.html" target="_blank" class="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded">Web</a>
+                                </div>
+                            </div>
+                            <div class="project-card-link glass-card p-6 rounded-2xl border-2 border-transparent" data-id="3">
+                                <h3 class="text-xl font-bold text-cyan-400 mb-2">CTF Guide</h3>
+                                <p class="text-slate-200 mb-4 text-sm">Inspect Tool Walkthrough.</p>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/Masterofnone745" target="_blank" class="text-[10px] uppercase font-bold bg-cyan-600 px-3 py-1 rounded">Repo</a>
+                                    <a href="Ctf.html" target="_blank" class="text-[10px] uppercase font-bold bg-slate-800 px-3 py-1 rounded">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-        <footer>
-            <p>Contact information: <a href="mailto:example@example.com">example@example.com</a></p>
-        </footer>
+
+        <div class="max-w-6xl mx-auto px-6 py-24">
+            <section id="contact" class="p-12 bg-slate-900 rounded-[2rem] border border-slate-800">
+                <h2 class="text-3xl font-bold mb-4 text-white">Contact</h2>
+                <div class="flex space-x-8">
+                    <a href="https://github.com/Masterofnone745" target="_blank" class="text-cyan-400 font-bold border-b border-cyan-400/30">GitHub</a>
+                    <a href="mailto:seichhorn26@pascack.org" class="text-cyan-400 font-bold border-b border-cyan-400/30">Email</a>
+                </div>
+            </section>
+        </div>
     </main>
+
+    <footer class="py-12 text-center text-slate-600 text-sm">&copy; 2025 Simon Eichhorn.</footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

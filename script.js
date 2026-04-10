@@ -1,12 +1,11 @@
-
-const projectData = [
+    
+    const projectData = [
     {
-        title: "Number Converter",
-        desc: "A handy tool designed to convert numbers between various formats. Built with focus on precision and an intuitive UI.",
-        repo: "https://github.com/Masterofnone745/Number-converter",
-        web: "https://masterofnone745.github.io/Number-converter/",
-        // This links the image file to the first project
-        img.src = "/ATCS-portfolio/Num_Converter.png";
+      title: "Number Converter",
+      desc: "...",
+      repo: "https://github.com/Masterofnone745/Number-converter",
+      web: "https://masterofnone745.github.io/Number-converter/",
+      image: "/ATCS-portfolio/Num_Converter.png"
     },
     {
         title: "Arduino Lights Out",

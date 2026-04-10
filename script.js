@@ -13,7 +13,7 @@ const projectData = [
         desc: "A logic-based physical puzzle game using Arduino hardware. Players must solve the light patterns.",
         repo: "https://github.com/Masterofnone745/Lights-Out-Ardunio",
         web: "Lightsout.html",
-        image: "LightsOut.HEIC"
+        image: "LightsOut.png"
     },
     {
         title: "King Pin",

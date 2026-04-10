@@ -6,7 +6,7 @@ const projectData = [
         repo: "https://github.com/Masterofnone745/Number-converter",
         web: "https://masterofnone745.github.io/Number-converter/",
         // This links the image file to the first project
-        image: "Num_Converter.png" 
+        img.src = "/ATCS-portfolio/Num_Converter.png";
     },
     {
         title: "Arduino Lights Out",

@@ -20,7 +20,7 @@ const projectData = [
         desc: "A collaborative web project designed for the school bowling team to track stats and schedules.",
         repo: "https://github.com/Masterofnone745",
         web: "Kingpin.html",
-        image: ""
+        image: "Kingpin.png"
     },
     {
         title: "CTF: Inspect Tool",

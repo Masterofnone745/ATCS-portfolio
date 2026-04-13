@@ -27,7 +27,7 @@ const projectData = [
         desc: "Guide on using the Browser Inspect Tool for CTF challenges, featuring solutions for Getaway 2 and Close Clawed.",
         repo: "https://github.com/Masterofnone745",
         web: "writeup.html",
-        image: ""
+        image: "Ctf.png"
     }
 ];
 

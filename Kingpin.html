@@ -6,43 +6,38 @@
     <title>Portfolio - KingPin </title>
     <link rel="icon" href="Icon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <style>
-        /* 1. Added Smooth Scroll Function */
-        html {
-            scroll-behavior: smooth;
-        }
-
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            background-image: radial-gradient(#d1d5db 1px, transparent 1px), radial-gradient(#d1d5db 1px, transparent 1px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #020617;
+            color: #f1f5f9;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 30px 30px;
         }
-
-        /* 2. Added Offset for Sticky Header 
-           This prevents the header from covering the section title after scrolling */
-        section[id] {
-            scroll-margin-top: 80px;
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
+        section[id] { scroll-margin-top: 100px; }
         pre::-webkit-scrollbar { height: 8px; }
-        pre::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 10px; }
-        section { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        code { font-family: 'Fira Code', monospace; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col text-gray-800">
+<body class="min-h-screen flex flex-col">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Simon / Portfolio</h1>
-            <nav class="space-x-4">
-                <a href="https://nathan-jeong.github.io/KingPin/teamSelector.html" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium">Live Project</a>
-                <a href="#contributions" class="text-gray-600 hover:text-indigo-600 transition-colors">Contributions</a>
+    <header class="glass-panel sticky top-0 z-50 border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
+            <h1 class="text-xl font-extrabold text-white tracking-tight">Simon <span class="text-indigo-400">/ Portfolio</span></h1>
+            <nav class="space-x-6 text-sm font-bold uppercase tracking-widest">
+                <a href="https://nathan-jeong.github.io/KingPin/teamSelector.html" target="_blank" class="text-indigo-400 hover:text-indigo-300 transition-colors">Live Project</a>
+                <a href="#contributions" class="text-slate-400 hover:text-white transition-colors">Contributions</a>
             </nav>
         </div>
     </header>
@@ -50,77 +45,87 @@
     <main class="flex-grow">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             
-            <section id="project" class="mb-12 p-8 bg-white rounded-xl border-t-4 border-indigo-600">
-                <span class="text-sm font-semibold text-indigo-500 uppercase">Web Development / UI & UX</span>
-                <h2 class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight">
+            <section id="project" class="mb-12 p-8 glass-panel rounded-3xl border-l-4 border-indigo-500">
+                <span class="bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Web Development / UI & UX</span>
+                <h2 class="mt-4 text-4xl font-black text-white tracking-tight">
                     KingPin: Team Selector App
                 </h2>
-                <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+                <p class="mt-4 text-lg text-slate-400 leading-relaxed max-w-4xl">
                     KingPin is a specialized management tool designed to streamline team selection and player organization. For this project, I focused on building functional working models for key pages and refining the user experience through consistent UI and feature implementation.
                 </p>
             </section>
 
             <div class="grid lg:grid-cols-3 gap-8">
                 
-                <section id="contributions" class="lg:col-span-2 p-8 bg-white rounded-xl">
-                    <h3 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-3">
+                <section id="contributions" class="lg:col-span-2 p-8 glass-panel rounded-3xl">
+                    <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                        <span class="w-8 h-1 bg-indigo-500 rounded-full"></span>
                         Technical Contributions
                     </h3>
 
-                    <div class="space-y-8">
+                    <div class="space-y-10">
                         <div>
-                            <h4 class="text-2xl font-semibold text-indigo-700 mb-2">1. Page creation</h4>
-                            <p class="text-gray-700 leading-relaxed">
+                            <h4 class="text-lg font-bold text-indigo-400 mb-2 uppercase tracking-wide">1. Page creation</h4>
+                            <p class="text-slate-300 leading-relaxed">
                                 I created the first versions of the login, sign up, dashboard, and player view player stats pages. This involved creating and updating the html, css, and js into a efficient working model.
                             </p>
                         </div>
 
                         <div>
-                            <h4 class="text-2xl font-semibold text-indigo-700 mb-2">2. Page design</h4>
-                            <p class="text-gray-700 leading-relaxed">
+                            <h4 class="text-lg font-bold text-indigo-400 mb-2 uppercase tracking-wide">2. Page design</h4>
+                            <p class="text-slate-300 leading-relaxed">
                                 I helped design the starting layouts for the team that would later be used for the pages like the dashboard, login, and team selector pages. Mainly via comments throughout development and creating visual mockups for the team to use as reference material.
                             </p>
                         </div>
 
                         <div>
-                            <h4 class="text-2xl font-semibold text-indigo-700 mb-2">3. Bug fixing and general UI changes</h4>
-                            <p class="text-gray-700 leading-relaxed">
+                            <h4 class="text-lg font-bold text-indigo-400 mb-2 uppercase tracking-wide">3. Bug fixing and general UI changes</h4>
+                            <p class="text-slate-300 leading-relaxed">
                                 I did a lot of bug fixing and UI changes throughout the development process of the website. A lot of my changes were to make the website as easy to use as possible. For example,
                             </p>
-                            <ul class="list-disc list-inside mt-2 ml-4 space-y-1 text-gray-600">
-                                <li>I created the working add a player and add award functions</li>
-                                <li>I updated the matchcenter to make it connect properly with the view player stats page</li>
-                                <li>I made the text easier to understand and more consistent throughout the site's creation.</li>
+                            <ul class="mt-4 space-y-3">
+                                <li class="flex items-start gap-3 text-slate-400 text-sm">
+                                    <span class="text-indigo-500 mt-1">▹</span>
+                                    <span>I created the working add a player and add award functions</span>
+                                </li>
+                                <li class="flex items-start gap-3 text-slate-400 text-sm">
+                                    <span class="text-indigo-500 mt-1">▹</span>
+                                    <span>I updated the matchcenter to make it connect properly with the view player stats page</span>
+                                </li>
+                                <li class="flex items-start gap-3 text-slate-400 text-sm">
+                                    <span class="text-indigo-500 mt-1">▹</span>
+                                    <span>I made the text easier to understand and more consistent throughout the site's creation.</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
                 <aside class="space-y-6">
-                    <section class="p-6 bg-indigo-900 text-white rounded-xl h-fit">
-                        <h4 class="text-xl font-bold mb-4">Implementation Highlights</h4>
-                        <ul class="space-y-4 text-indigo-100 text-sm">
-                            <li class="border-b border-indigo-800 pb-2">
-                                <strong class="text-white block">Logic Integration:</strong> 
-                                Connected front-end forms to dynamic JavaScript functions for player management.
+                    <section class="p-8 bg-slate-900 border border-slate-800 rounded-3xl h-fit shadow-2xl">
+                        <h4 class="text-lg font-bold text-white mb-6">Implementation Highlights</h4>
+                        <ul class="space-y-6 text-sm">
+                            <li class="border-b border-slate-800 pb-4">
+                                <strong class="text-indigo-400 block mb-1 uppercase tracking-tighter">Logic Integration:</strong> 
+                                <span class="text-slate-400">Connected front-end forms to dynamic JavaScript functions for player management.</span>
                             </li>
-                            <li class="border-b border-indigo-800 pb-2">
-                                <strong class="text-white block">System Consistency:</strong> 
-                                Standardized UI text and layouts to improve user flow.
+                            <li class="border-b border-slate-800 pb-4">
+                                <strong class="text-indigo-400 block mb-1 uppercase tracking-tighter">System Consistency:</strong> 
+                                <span class="text-slate-400">Standardized UI text and layouts to improve user flow.</span>
                             </li>
                             <li>
-                                <strong class="text-white block">Cross-Page Sync:</strong> 
-                                Linked Matchcenter events directly to specific player statistical views.
+                                <strong class="text-indigo-400 block mb-1 uppercase tracking-tighter">Cross-Page Sync:</strong> 
+                                <span class="text-slate-400">Linked Matchcenter events directly to specific player statistical views.</span>
                             </li>
                         </ul>
                     </section>
                 </aside>
             </div>
 
-            <section class="mt-12 p-8 bg-gray-800 shadow-2xl rounded-xl">
-                <h3 class="text-3xl font-bold text-white mb-6">Development Logic Excerpt</h3>
-                <p class="text-gray-400 mb-4 italic">// Example of the Add Player and Matchcenter logic I refined</p>
-                <pre class="rounded-lg overflow-x-auto p-4 bg-gray-900 shadow-inner">
+            <section class="mt-12 p-8 bg-slate-950 border border-slate-800 rounded-3xl shadow-inner">
+                <h3 class="text-2xl font-bold text-white mb-6">Development Logic Excerpt</h3>
+                <p class="text-slate-500 mb-4 italic text-sm">// Example of the Add Player and Matchcenter logic I refined</p>
+                <pre class="rounded-xl overflow-x-auto p-6 bg-slate-900/50 border border-slate-800">
 <code class="javascript">
 // Function to handle adding players to the dashboard model
 function addPlayer(name, team) {
@@ -152,8 +157,8 @@ function formatDisplayMessage(type) {
         </div>
     </main>
 
-    <footer class="bg-gray-100 mt-8 py-6">
-        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500 text-sm">
+    <footer class="mt-8 py-10 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 text-center text-slate-600 text-xs font-medium uppercase tracking-widest">
             &copy; 2024 Simon. Built for the KingPin Team Selector project.
         </div>
     </footer>

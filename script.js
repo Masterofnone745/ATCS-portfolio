@@ -1,11 +1,9 @@
-
 const projectData = [
     {
         title: "Number Converter",
         desc: "A handy tool designed to convert numbers between various formats. Built with focus on precision and an intuitive UI.",
         repo: "https://github.com/Masterofnone745/Number-converter",
         web: "https://masterofnone745.github.io/Number-converter/",
-        // This links the image file to the first project
         image: "Num_Converter.png" 
     },
     {
@@ -31,8 +29,6 @@ const projectData = [
     }
 ];
 
-// ... the rest of your script remains exactly the same
-
 const slider = document.getElementById('project-slider');
 
 function shiftSlider(direction) {
@@ -54,11 +50,19 @@ function updateShowcase() {
     const id = activeCard.getAttribute('data-id');
     const data = projectData[id];
 
+    const repoBtn = document.getElementById('showcase-repo-btn');
+    const webBtn = document.getElementById('showcase-web-btn');
+
     document.getElementById('showcase-title').innerText = data.title;
     document.getElementById('showcase-desc').innerText = data.desc;
-    document.getElementById('showcase-repo-btn').href = data.repo;
-    document.getElementById('showcase-web-btn').href = data.web;
     
+    // Set links and ensure they open in the SAME window
+    repoBtn.href = data.repo;
+    repoBtn.target = "_self"; 
+    
+    webBtn.href = data.web;
+    webBtn.target = "_self";
+
     const img = document.getElementById('showcase-img');
     const placeholder = document.getElementById('showcase-placeholder');
     

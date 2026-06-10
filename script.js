@@ -29,9 +29,9 @@ const projectData = [
     },
     {
         title: "Fishing Game",
-        desc: "An interactive catching game where players reel in different fish types and rack up high scores.",
+        desc: "An interactive catching game where players reel in fish and rack up high scores.",
         repo: "https://github.com/Masterofnone745", 
-        web: "FishingGame.html",                    
+        web: "https://masterofnone745.github.io/Fish/",                    
         image: "FishingGame.png"                    
     }
 ];

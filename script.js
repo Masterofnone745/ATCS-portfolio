@@ -26,6 +26,13 @@ const projectData = [
         repo: "https://github.com/Masterofnone745",
         web: "Ctf.html",
         image: "Ctf.png"
+    },
+    {
+        title: "Fishing Game",
+        desc: "An interactive catching game where players reel in fish and rack up high scores.",
+        repo: "https://github.com/Masterofnone745", // Swap with your direct fishing repo link if applicable
+        web: "https://masterofnone745.github.io/Fish/",                    // Your fishing game HTML path
+        image: "FishingGame.png"                    // Your asset image name
     }
 ];
 

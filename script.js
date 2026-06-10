@@ -29,44 +29,37 @@ const projectData = [
     },
     {
         title: "Fishing Game",
-        desc: "An interactive catching game where players reel in fish and rack up high scores.",
-        repo: "https://github.com/Masterofnone745", // Swap with your direct fishing repo link if applicable
-        web: "https://masterofnone745.github.io/Fish/",                    // Your fishing game HTML path
-        image: "FishingGame.png"                    // Your asset image name
+        desc: "An interactive catching game where players reel in different fish types and rack up high scores.",
+        repo: "https://github.com/Masterofnone745", 
+        web: "FishingGame.html",                    
+        image: "FishingGame.png"                    
     }
 ];
 
-const slider = document.getElementById('project-slider');
+let currentIndex = 0; // Tracks the currently featured project index
 
 function shiftSlider(direction) {
-    const cards = document.querySelectorAll('.project-card-link');
-    if (direction === 1) {
-        slider.appendChild(cards[0]);
-    } else {
-        slider.prepend(cards[cards.length - 1]);
-    }
+    // direction can be 1 (next) or -1 (prev)
+    currentIndex = (currentIndex + direction + projectData.length) % projectData.length;
     updateShowcase();
 }
 
 function updateShowcase() {
+    const slider = document.getElementById('project-slider');
     const cards = document.querySelectorAll('.project-card-link');
     if (cards.length === 0) return;
 
-    // The middle card (index 1) is the one we showcase
-    const activeCard = cards[1]; 
-    const id = activeCard.getAttribute('data-id');
-    const data = projectData[id];
+    const data = projectData[currentIndex];
 
+    // 1. Update the Main Showcase Banner elements
     const repoBtn = document.getElementById('showcase-repo-btn');
     const webBtn = document.getElementById('showcase-web-btn');
 
     document.getElementById('showcase-title').innerText = data.title;
     document.getElementById('showcase-desc').innerText = data.desc;
     
-    // Set links and ensure they open in the SAME window
     repoBtn.href = data.repo;
     repoBtn.target = "_self"; 
-    
     webBtn.href = data.web;
     webBtn.target = "_self";
 
@@ -82,14 +75,20 @@ function updateShowcase() {
         placeholder.classList.remove('hidden');
     }
 
-    // Visual styling for the slider cards
-    cards.forEach((card, i) => {
-        if (i === 1) {
+    // 2. Center and style the active item inside the horizontal track
+    cards.forEach((card) => {
+        const id = parseInt(card.getAttribute('data-id'), 10);
+        
+        if (id === currentIndex) {
+            // Highlighting the active card
             card.style.borderColor = "#06b6d4";
             card.style.transform = "scale(1.1)";
             card.style.opacity = "1";
             card.style.background = "rgba(15, 23, 42, 0.9)";
+            // Smoothly center the active card within the container view
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         } else {
+            // Dimming inactive cards
             card.style.borderColor = "transparent";
             card.style.transform = "scale(0.85)";
             card.style.opacity = "0.4";
